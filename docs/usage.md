@@ -82,8 +82,9 @@ provider is not automatically labeled a critic score.
 
 > Give me an overview of my movie library, including genres, decades and watched state.
 
-Statistics distinguish physical copies from unique titles where canonical IDs
-allow it. Genre counts overlap because one film can have several genres.
+Library statistics count physical copies. Search results also report unique
+titles where canonical IDs allow it; ask for that distinction when duplicates
+matter. Genre counts overlap because one film can have several genres.
 
 > Find a show by title, then list its season-two episodes and their watched state.
 
