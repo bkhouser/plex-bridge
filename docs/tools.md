@@ -1,5 +1,8 @@
 # MCP tool contract
 
+For everyday examples and conversation walkthroughs, start with the
+[usage guide](usage.md). This page describes the underlying tool contract.
+
 All tools require `library:read`. Names and parameters are discoverable through
 MCP `tools/list`. Personal data and freshness are read from one SQLite snapshot.
 `get_usage_guide` returns static documentation without querying the cache.

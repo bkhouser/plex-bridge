@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Add a GitHub-facing usage guide with example conversations and a README overview.
 - Expose a static getting-started guide through `get_usage_guide` and the MCP
   resource `plex-bridge://guides/getting-started`, with eight practical examples.
 - Add onboarding pointers to initialization instructions and the bundled skill.

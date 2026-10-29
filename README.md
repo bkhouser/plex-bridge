@@ -21,6 +21,27 @@ Plex database access, Tautulli, scraping, or arbitrary HTTP/SQL/shell tools.
 Use one instance/database per profile. There is no hosted multi-tenant service,
 standalone web UI, extra model API, embedding service, or vector database.
 
+## What can I ask it?
+
+Once connected, ask your assistant in ordinary language:
+
+| You want to… | Try asking… |
+| --- | --- |
+| Find something for tonight | “Find unwatched science-fiction movies in my library, at most 100 minutes.” |
+| Explore your collection | “Give me an overview of my movie library and its most common genres.” |
+| Check which version you own | “Do I have The Thing from 1982 or the 2011 version?” |
+| Understand your ratings | “Compare my personal rating for Fargo (1996) with the public ratings Plex provides.” |
+| Look back at recent viewing | “Show my ten most recent viewing events, with dates in my timezone.” |
+| Get suggestions grounded in your library | “Suggest three movies based on my personal ratings and explain why each might fit.” |
+| Save an opinion for later | “Remember that I liked this film's dialogue but found the pacing slow.” |
+
+Plex Bridge supplies the library facts; the assistant explains them and makes
+recommendation judgments. Results depend on your own library and available data.
+Saving an opinion is an explicit **local feedback write**, never a Plex rating change.
+
+Read the **[usage guide and example conversations](docs/usage.md)** for a first-session
+walkthrough, TV searches, follow-up questions, feedback management, and data caveats.
+
 ## Requirements
 
 Python 3.12+, a reachable Plex Media Server, an authorized Plex token, and a
@@ -104,6 +125,7 @@ Ask: **“What can I do with Plex Bridge? Show me a few examples.”** The built
 read `plex-bridge://guides/getting-started`. Both return the same static guide;
 reading it does not access personal data or save feedback.
 
+- [Usage guide and examples](docs/usage.md) / [Tool reference](docs/tools.md)
 - [Configuration](docs/configuration.md) / [Architecture](docs/architecture.md)
 - [Deployment and backup](docs/deployment.md) / [Windows startup](docs/windows-startup.md)
 - [Privacy](docs/privacy.md) / [Security policy](SECURITY.md)
