@@ -95,9 +95,14 @@ current Plex state; it does not prove you have never seen a title.
 
 ## Documentation
 
-The [tool reference](docs/tools.md) covers all eleven tools. All require
+The [tool reference](docs/tools.md) covers all twelve tools. All require
 authentication; remote feedback writes also need `feedback:write`. Configure
 client confirmation for writes. The assistant makes recommendation judgments.
+
+Ask: **“What can I do with Plex Bridge? Show me a few examples.”** The built-in
+`get_usage_guide` tool explains common workflows. Resource-aware clients can also
+read `plex-bridge://guides/getting-started`. Both return the same static guide;
+reading it does not access personal data or save feedback.
 
 - [Configuration](docs/configuration.md) / [Architecture](docs/architecture.md)
 - [Deployment and backup](docs/deployment.md) / [Windows startup](docs/windows-startup.md)

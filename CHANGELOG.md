@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased
+
+- Expose a static getting-started guide through `get_usage_guide` and the MCP
+  resource `plex-bridge://guides/getting-started`, with eight practical examples.
+- Add onboarding pointers to initialization instructions and the bundled skill.
+
 ## 0.1.1 — 2026-10-29
 
 First public source release, under the Plex Bridge name (formerly Plex Advisor).

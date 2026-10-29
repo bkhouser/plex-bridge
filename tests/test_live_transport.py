@@ -7,7 +7,9 @@ import httpx
 import uvicorn
 from mcp import ClientSession
 from mcp.client.streamable_http import streamable_http_client
+from pydantic import AnyUrl
 
+from plex_advisor.guidance import GUIDE_URI
 from plex_advisor.mcp_server import create_app
 
 
@@ -44,7 +46,13 @@ def test_official_client_real_loopback_listener(config, populated):
                     async with ClientSession(read, write) as session:
                         await session.initialize()
                         tools = await session.list_tools()
-                        assert len(tools.tools) == 11
+                        assert len(tools.tools) == 12
+                        guide = await session.call_tool("get_usage_guide", {})
+                        assert not guide.isError
+                        resources = await session.list_resources()
+                        assert any(str(r.uri) == GUIDE_URI for r in resources.resources)
+                        resource = await session.read_resource(AnyUrl(GUIDE_URI))
+                        assert resource.contents[0].text == guide.structuredContent["guide"]
                         result = await session.call_tool(
                             "search_library",
                             {
@@ -57,7 +65,7 @@ def test_official_client_real_loopback_listener(config, populated):
                         )
                         assert not result.isError
                         assert result.structuredContent["total_titles"] == 1
-                        print(f"Verified official MCP client over TCP localhost:{port}: 11 tools")
+                        print(f"Verified official MCP client over TCP localhost:{port}: 12 tools")
 
         asyncio.run(verify())
     finally:

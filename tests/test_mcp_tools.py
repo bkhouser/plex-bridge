@@ -3,6 +3,7 @@ import json
 import pytest
 from starlette.testclient import TestClient
 
+from plex_advisor.guidance import GUIDE_URI
 from plex_advisor.mcp_server import create_app
 
 
@@ -43,13 +44,50 @@ def test_initialize_schemas_annotations(client):
         },
     )
     assert initialized["result"]["serverInfo"]["name"] == "Plex Bridge"
+    assert "get_usage_guide" in initialized["result"]["instructions"]
+    assert GUIDE_URI in initialized["result"]["instructions"]
     tools = rpc(client, "tools/list")["result"]["tools"]
-    assert len(tools) == 11
+    assert len(tools) == 12
     for tool in tools:
         assert tool["inputSchema"]["type"] == "object"
         assert tool["annotations"]["readOnlyHint"] == (
             tool["name"] not in {"record_media_feedback", "delete_media_feedback"}
         )
+
+
+def test_usage_guide_is_discoverable_and_does_not_access_personal_cache(
+    client, populated, monkeypatch
+):
+    def denied(*args, **kwargs):
+        raise AssertionError("Help must not read or modify the personal cache")
+
+    monkeypatch.setattr(populated[0], "connect", denied)
+    resources = rpc(client, "resources/list")["result"]["resources"]
+    guide_resource = next(r for r in resources if r["uri"] == GUIDE_URI)
+    assert guide_resource["mimeType"] == "text/markdown"
+    guide = call(client, "get_usage_guide")
+    resource = rpc(client, "resources/read", {"uri": GUIDE_URI})["result"]["contents"][0]
+    assert resource["text"] == guide["guide"]
+    assert guide["resource_uri"] == GUIDE_URI
+    assert "Things to try" in guide["guide"]
+    assert "casual reaction" in guide["guide"]
+    assert "PRIVATE-DO-NOT-LEAK" not in str(guide)
+
+
+@pytest.mark.parametrize(
+    ("method", "params"),
+    [
+        ("tools/call", {"name": "get_usage_guide", "arguments": {}}),
+        ("resources/read", {"uri": GUIDE_URI}),
+    ],
+)
+def test_documentation_preserves_authentication(client, method, params):
+    response = client.post(
+        "/mcp",
+        headers={"Authorization": ""},
+        json={"jsonrpc": "2.0", "id": 1, "method": method, "params": params},
+    )
+    assert response.status_code == 401
 
 
 @pytest.mark.parametrize(

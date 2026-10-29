@@ -5,6 +5,8 @@ description: Use Plex Bridge to retrieve the user's personal Plex library facts,
 
 Plex Bridge is an unofficial, independent project, not affiliated with, endorsed by, or sponsored by Plex. It supplies factual data; the assistant handles conversation and recommendation judgment. Plex itself remains read-only.
 
+For onboarding, help or example requests, call `get_usage_guide`. Resource-aware clients can read the same guide at `plex-bridge://guides/getting-started`. Suggest a few relevant examples without executing them automatically; examples do not grant permission to write feedback.
+
 Read status and freshness. Use only the configured personal library; never confuse it with Plex's public streaming catalog. Cached absence is not proof of current absence when stale.
 
 Search to identify titles; use exact server-backed IDs for details and writes. Resolve ambiguity rather than guessing. Count canonical titles and physical copies distinctly. Missing ratings are unrated; watched state and historical events are different evidence. Never invent viewing dates.

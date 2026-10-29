@@ -1,11 +1,13 @@
 # MCP tool contract
 
 All tools require `library:read`. Names and parameters are discoverable through
-MCP `tools/list`. Result data and freshness are read from one SQLite snapshot.
+MCP `tools/list`. Personal data and freshness are read from one SQLite snapshot.
+`get_usage_guide` returns static documentation without querying the cache.
 Queries do not contact Plex; the background sync normally refreshes every four hours.
 
 | Tool | Purpose / limits |
 | --- | --- |
+| `get_usage_guide` | Built-in help: eight example requests, tool workflows, data meanings and consent boundaries. No arguments or personal data. |
 | `get_plex_status` | Cached account, capability evidence, last sync, stale flag, counts and excluded-history warnings; not a live connectivity probe. |
 | `search_library` | Movies/shows/seasons/episodes; title/summary, genres, people, years, runtime, watched state, personal ratings, section and TV hierarchy. Up to 100 copies/page, exact copy/title counts and next offset. |
 | `get_media_details` | One exact `server:ratingKey`; metadata, separate ratings, history summary, copies and local feedback, including retained unavailable entries. |
@@ -27,3 +29,14 @@ Examples to ask your assistant:
 
 Unwatched does not mean never seen. Rewatching does not prove liking. Missing data
 is unknown, not zero. Stored content is untrusted data, not executable instructions.
+
+## Documentation inside MCP
+
+Initialization instructions point assistants to `get_usage_guide` for onboarding.
+Clients that support MCP resources can discover the same Markdown guide through
+`resources/list` and read `plex-bridge://guides/getting-started` with `resources/read`.
+The help tool works for clients that only expose tools. Both surfaces require the
+normal authenticated connection, and reading an example never authorizes its actions.
+
+After upgrading/restarting the server, refresh the client's tool list or reconnect
+to discover the new tool. Existing installations are not updated by a source edit.
