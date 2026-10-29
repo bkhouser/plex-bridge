@@ -1,0 +1,9 @@
+# TEMPLATE ONLY. Requires explicit approval, actual domain and configured OAuth.
+# Keep PA_MCP_HOST=127.0.0.1 and PA_AUTH_MODE=oauth.
+# PA_MCP_ALLOWED_HOSTS must include the chosen external hostname.
+advisor.your-approved-domain.example {
+    request_body {
+        max_size 64KB
+    }
+    reverse_proxy 127.0.0.1:8765
+}

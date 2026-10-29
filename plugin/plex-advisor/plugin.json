@@ -1,0 +1,23 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "plex-advisor",
+  "version": "0.1.1",
+  "description": "Unofficial MCP bridge for personal Plex library facts, ratings, history, and explicit local feedback. Not affiliated with Plex.",
+  "author": {
+    "name": "Brian Houser"
+  },
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Plex Bridge",
+        "shortDescription": "Your Plex library, connected",
+        "longDescription": "An unofficial MCP bridge connecting ChatGPT, Codex, and other MCP clients to your personal Plex library, ratings, and viewing history. The assistant handles conversation and recommendation judgment. Plex access is read-only. Qualitative feedback is saved locally only when explicitly requested. Plex Bridge is an independent project and is not affiliated with, endorsed by, or sponsored by Plex.",
+        "developerName": "Brian Houser",
+        "category": "Productivity",
+        "defaultPrompt": "Show my recent Plex viewing history and personal ratings, including when the data was last synced."
+      }
+    }
+  },
+  "license": "MIT",
+  "repository": "https://github.com/bkhouser/plex-bridge"
+}

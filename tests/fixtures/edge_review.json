@@ -1,0 +1,10 @@
+{
+  "media_id": "server-A:1",
+  "authorized": true,
+  "rating": null,
+  "sentiment": "mixed",
+  "comments": "Edge of Tomorrow was enjoyable once I understood the premise, but the exposition and editing felt rushed. It was confusingly introduced and overly compressed.",
+  "positive_attributes": ["Enjoyable premise"],
+  "negative_attributes": ["Confusing exposition", "Rushed editing"],
+  "source": "Synthetic evaluation fixture; not a saved user preference"
+}

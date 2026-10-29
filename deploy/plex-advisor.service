@@ -1,0 +1,26 @@
+[Unit]
+Description=Plex Bridge unofficial private MCP service
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=plex-advisor
+Group=plex-advisor
+WorkingDirectory=/opt/plex-advisor
+EnvironmentFile=/etc/plex-advisor.env
+ExecStart=/opt/plex-advisor/.venv/bin/plex-advisor serve
+Restart=on-failure
+RestartSec=15
+StateDirectory=plex-advisor
+StateDirectoryMode=0700
+UMask=0077
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/lib/plex-advisor
+RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX
+
+[Install]
+WantedBy=multi-user.target

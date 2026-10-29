@@ -1,0 +1,52 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["plex_advisor"]
+
+[tool.hatch.build.targets.sdist]
+include = ["/plex_advisor", "/tests", "/docs", "/deploy", "/scripts", "/plugin", "/.github", "/README.md", "/LICENSE", "/SECURITY.md", "/CONTRIBUTING.md", "/CHANGELOG.md", "/pyproject.toml", "/requirements-tested.txt", "/.env.example", "/.gitignore", "/.gitattributes"]
+exclude = ["**/__pycache__/**", "**/*.pyc"]
+
+[project]
+name = "plex-advisor"
+version = "0.1.1"
+description = "Plex Bridge: unofficial, read-only Plex library facts over MCP with explicit local feedback"
+requires-python = ">=3.12"
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+keywords = ["plex", "mcp", "chatgpt", "codex", "media-library"]
+dependencies = ["plexapi>=4.18.3,<5", "mcp[cli]>=1.30,<2", "pydantic-settings>=2.7,<3", "PyJWT[crypto]>=2.10,<3", "tzdata>=2025.1", "certifi>=2026.10.19"]
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "pytest-asyncio>=1", "ruff>=0.12", "mypy>=1.15", "types-requests", "httpx>=0.28", "jsonschema>=4", "types-jsonschema", "build>=1", "pip-audit>=2"]
+
+[project.urls]
+Repository = "https://github.com/bkhouser/plex-bridge"
+Issues = "https://github.com/bkhouser/plex-bridge/issues"
+Security = "https://github.com/bkhouser/plex-bridge/security/policy"
+
+[project.scripts]
+plex-advisor = "plex_advisor.cli:main"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+files = ["plex_advisor"]
+
+[[tool.mypy.overrides]]
+module = ["plexapi.*"]
+ignore_missing_imports = true
